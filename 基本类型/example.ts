@@ -48,3 +48,39 @@ let unusable: void = undefined;  // void声明在变量上面的时候，只能�
 // null和undefined类型 默认情况下null和undefined是所有类型的子类型。
 let u: undefined = undefined;
 let n: null = null;
+
+// never类型表示是那些永远都不存在的值类型
+// 返回never的函数必须存在无法达到的终点
+function error(message: string): never {
+  throw new Error(message);
+}
+
+// 推断的返回值类型为never
+function fail() {
+  return error("Something failed");
+}
+
+// 返回never的函数必须存在无法达到的终点
+function infiniteLoop(): never {
+  while (true) {
+  }
+}
+
+// Object类型 object表示非原始类型，也就是除number，string，boolean，symbol，null或undefined之外的类型。
+declare function create(o: object | null): void;
+
+create({ prop: 0 }); // OK
+create(null); // OK
+
+// create(42); // Error
+// create("string"); // Error
+// create(false); // Error
+// create(undefined); // Error
+
+
+// 类型断言 1.尖括号写法
+let someValue: any = "this is a string";
+let strLength: number = (<string>someValue).length;
+// 类型断言 2.as写法
+let someValue2: any = "this is a string";
+let strLength2: number = (someValue2 as string).length;
